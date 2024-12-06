@@ -1,0 +1,61 @@
+---
+title: "Banana Quality"
+author: "Max Chen"
+date: "12/02/2024"
+output:
+  html_document:
+    df_print: paged
+subtitle: 'CPSC 292 Section 02'
+---
+
+
+## Project 3
+
+```{r, include=TRUE}
+# Loading required libraries
+library("janitor")
+library("ggplot2")
+library("dplyr")
+library("patchwork")
+```
+
+
+
+```{r, include=TRUE}
+alldata <- read.csv("banana_quality.csv")
+good_bananas <- alldata %>%
+  filter(Quality == "Good")
+bad_bananas <-alldata %>%
+  filter(Quality == "Bad")
+```
+
+
+```{r, include=TRUE}
+ggplot(good_bananas, aes(x = HarvestTime, y = Sweetness)) +
+  geom_point() +
+   labs(x = "Harvest Time", y = "Sweetness", title = "Sweetness vs. Harvest Time (Good Quality Bananas)")+
+  geom_smooth(method = "lm")+
+  theme_minimal()
+
+```
+
+```{r, include=TRUE}
+bar1 <- ggplot(alldata, aes(x = Quality, y = Sweetness, fill = Quality)) +
+  geom_bar(aes(y = Sweetness), stat = "summary", fun = "mean", position = "dodge")+
+  labs(title = "Comparison of Sweetness for Good vs Bad Bananas", 
+       x = "Banana Quality", y = "Average Sweetness") +
+  theme_minimal() +
+  scale_fill_manual(values = c("Good" = "green", "Bad" = "red")) +
+ylim(-3, max(alldata$Sweetness) + 1)
+
+bar2 <- ggplot(alldata, aes(x = Quality, y = Sweetness, fill = Quality)) +
+   geom_bar(aes(y = Ripeness), stat = "summary", fun = "mean", position = "dodge", alpha = 0.5) +
+  labs(title = "Comparison of Ripeness for Good vs Bad Bananas", 
+       x = "Banana Quality", y = "Average Ripeness") +
+  theme_minimal() +
+  scale_fill_manual(values = c("Good" = "green", "Bad" = "red")) +
+ylim(-3, max(alldata$Sweetness) + 1)
+
+bar1 + bar2 + plot_annotation(title = "Comparison of Banana Characteristics")&
+  theme(plot.title = element_text(size = 9, hjust = 0.5, vjust = 0.5))
+```
