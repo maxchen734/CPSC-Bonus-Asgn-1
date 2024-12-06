@@ -32,9 +32,9 @@ bad_bananas <-alldata %>%
 
 ```{r, include=TRUE}
 ggplot(good_bananas, aes(x = HarvestTime, y = Sweetness)) +
-  geom_point() +
+  geom_point(alpha=0.4) +
    labs(x = "Harvest Time", y = "Sweetness", title = "Sweetness vs. Harvest Time (Good Quality Bananas)")+
-  geom_smooth(method = "lm")+
+  geom_smooth(method = "lm", color="red")+
   theme_minimal()
 
 ```
@@ -45,7 +45,7 @@ bar1 <- ggplot(alldata, aes(x = Quality, y = Sweetness, fill = Quality)) +
   labs(title = "Comparison of Sweetness for Good vs Bad Bananas", 
        x = "Banana Quality", y = "Average Sweetness") +
   theme_minimal() +
-  scale_fill_manual(values = c("Good" = "green", "Bad" = "red")) +
+  scale_fill_manual(values = c("Good" = "blue", "Bad" = "red")) +
 ylim(-3, max(alldata$Sweetness) + 1)
 
 bar2 <- ggplot(alldata, aes(x = Quality, y = Sweetness, fill = Quality)) +
@@ -53,7 +53,7 @@ bar2 <- ggplot(alldata, aes(x = Quality, y = Sweetness, fill = Quality)) +
   labs(title = "Comparison of Ripeness for Good vs Bad Bananas", 
        x = "Banana Quality", y = "Average Ripeness") +
   theme_minimal() +
-  scale_fill_manual(values = c("Good" = "green", "Bad" = "red")) +
+  scale_fill_manual(values = c("Good" = "blue", "Bad" = "red")) +
 ylim(-3, max(alldata$Sweetness) + 1)
 
 bar1 + bar2 + plot_annotation(title = "Comparison of Banana Characteristics")&
