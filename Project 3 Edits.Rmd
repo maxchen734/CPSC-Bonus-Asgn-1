@@ -58,4 +58,5 @@ ylim(-3, max(alldata$Sweetness) + 1)
 
 bar1 + bar2 + plot_annotation(title = "Comparison of Banana Characteristics")&
   theme(plot.title = element_text(size = 9, hjust = 0.5, vjust = 0.5))
+#:)
 ```
